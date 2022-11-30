@@ -8,10 +8,10 @@ sql = "insert into book(id,`name`, title, text, url, sort) values(null,%s,%s,%s,
 
 
 # 书id
-book_id = "1369"
+book_id = "1248"
 
 # 总页数
-book_page = 2499
+book_page = 1317
 
 user_agent = [
     "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; AcooBrowser; .NET CLR 1.1.4322; .NET CLR 2.0.50727)",
@@ -57,7 +57,7 @@ headers = {
 
 
 def main(cur, conn):
-    try:
+    # try:
         url = "https://www.biquge9.com/book/" + str(book_id)
         req = urllib.request.Request(url)
         req.add_header('User-Agent', random.choice(user_agent))
@@ -68,18 +68,18 @@ def main(cur, conn):
         html.close()
         ran_time = random.randint(1, 5)
         time.sleep(ran_time)
-        j = 1
+        j = 1046
         while j <= book_page:
             getText(name, cur, conn, j)
             j += 1
-    except:
-        print("获取书籍失败，再次获取！")
-        ran_time = random.randint(1, 5)
-        time.sleep(ran_time)
-        main(cur, conn)
+    # except:
+    #     print("获取书籍失败，再次获取！")
+    #     ran_time = random.randint(1, 5)
+    #     time.sleep(ran_time)
+    #     main(cur, conn)
 
 def getText(name, cur, conn, j):
-    try:
+    # try:
         t_url = "https://www.biquge9.com/book/"+str(book_id)+"/"+str(j)+".html"
         t_req = urllib.request.Request(t_url)
         t_req.add_header('User-Agent', random.choice(user_agent))
@@ -93,17 +93,17 @@ def getText(name, cur, conn, j):
         t_html.close()
         t_ran_time = random.randint(1, 2)
         time.sleep(t_ran_time)
-    except:
-        print("获取文章：第"+str(j)+"章节获取失败,再次获取！")
-        t_ran_time = random.randint(1, 2)
-        time.sleep(t_ran_time)
-        getText(name, cur, conn, j)
+    # except:
+    #     print("获取文章：第"+str(j)+"章节获取失败,再次获取！")
+    #     t_ran_time = random.randint(1, 2)
+    #     time.sleep(t_ran_time)
+    #     getText(name, cur, conn, j)
 
 
 # 初始化mysql连接
 def init_mysql():
     dbparams = {
-        'host': '192.168.4.20',
+        'host': '192.168.4.22',
         'port': 3306,
         'user': 'root',
         'password': 'root',
